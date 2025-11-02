@@ -1,6 +1,6 @@
 import { Repository } from "aws-cdk-lib/aws-ecr";
-import { DockerImageAsset, Platform } from "aws-cdk-lib/aws-ecr-assets";
-import { Tags, RemovalPolicy } from "aws-cdk-lib/core";
+import { DockerImageAsset } from "aws-cdk-lib/aws-ecr-assets";
+import { Tags, RemovalPolicy, Duration } from "aws-cdk-lib/core";
 import { Construct } from "constructs";
 
 export class EcrResources extends Construct {
@@ -21,6 +21,16 @@ export class EcrResources extends Construct {
       imageScanOnPush: true,
       emptyOnDelete: true,
       removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    this.repository.addLifecycleRule({
+      description: "keep last 5 images",
+      maxImageCount: 5,
+    });
+
+    this.repository.addLifecycleRule({
+      description: "Remove images older than 10 days",
+      maxImageAge: Duration.days(10),
     });
   }
 }
