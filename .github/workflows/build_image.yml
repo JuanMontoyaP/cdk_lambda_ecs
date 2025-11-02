@@ -30,7 +30,7 @@ jobs:
           images: ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=${{ github.ref == 'refs/heads/main' && 'latest' || github.ref_name }}
-            type=ref,event=branch,prefix=ref-
+            type=ref,event=pr,prefix=pr-
             type=sha,prefix=sha-
 
       - name: Configure AWS Credentials
