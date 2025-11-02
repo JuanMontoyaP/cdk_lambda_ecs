@@ -28,7 +28,10 @@ data "aws_iam_policy_document" "gha_cdk_policy" {
     actions = [
       "ecr:BatchCheckLayerAvailability",
       "ecr:CompleteLayerUpload",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
       "ecr:InitiateLayerUpload",
+      "ecr:CompleteLayerUpload",
       "ecr:PutImage",
       "ecr:UploadLayerPart",
       "ecr:GetAuthorizationToken"
