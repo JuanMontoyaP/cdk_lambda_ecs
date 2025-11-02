@@ -24,11 +24,6 @@ export class EcrResources extends Construct {
     });
 
     this.repository.addLifecycleRule({
-      description: "keep last 5 images",
-      maxImageCount: 5,
-    });
-
-    this.repository.addLifecycleRule({
       description: "Remove images older than 10 days",
       maxImageAge: Duration.days(10),
     });
