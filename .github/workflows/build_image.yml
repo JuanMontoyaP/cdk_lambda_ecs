@@ -29,6 +29,17 @@ jobs:
             type=ref,event=pr,prefix=pr-
             type=sha,prefix=sha-
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHubActions_cdk_lambda_ecs
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       - name: Build Docker image
         id: build
         uses: docker/build-push-action@v6
