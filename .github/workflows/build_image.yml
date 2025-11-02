@@ -30,9 +30,19 @@ jobs:
             type=sha
 
       - name: Build Docker image
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: ./src/ecs_app
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker
+
+      - name: Display Docker image information
+        run: |
+          echo "Built Docker images:"
+          echo "Tags: ${{ steps.meta.outputs.tags }}"
+          echo "Labels: ${{ steps.meta.outputs.labels }}"
+          echo "Image digest: ${{ steps.build.outputs.digest }}"
+          echo "Image ID: ${{ steps.build.outputs.imageid }}"
