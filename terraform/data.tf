@@ -30,7 +30,8 @@ data "aws_iam_policy_document" "gha_cdk_policy" {
       "ecr:CompleteLayerUpload",
       "ecr:InitiateLayerUpload",
       "ecr:PutImage",
-      "ecr:UploadLayerPart"
+      "ecr:UploadLayerPart",
+      "ecr:GetAuthorizationToken"
     ]
 
     resources = ["*"]
