@@ -8,8 +8,8 @@ on:
     paths: [src/ecs_app/**]
 
 env:
-  AWS_REGION: us-east-1
-  ECR_REPOSITORY: cdk-lambda-ecs-repo
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
   VERSION: ${{ github.sha }}
 
 jobs:
