@@ -34,6 +34,7 @@ jobs:
             type=sha,prefix=sha-
 
       - name: Configure AWS Credentials
+        if: github.ref == 'refs/heads/main'
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
@@ -41,6 +42,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
+        if: github.ref == 'refs/heads/main'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
@@ -49,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./src/ecs_app
-          push: true
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
