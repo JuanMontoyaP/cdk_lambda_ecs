@@ -1,0 +1,15 @@
+name: Build Docker ECR Image
+on:
+    push:
+        branches:
+        - "*"
+    pull_request:
+        branches:
+        - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
