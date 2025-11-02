@@ -1,7 +1,7 @@
-IMAGE=cdk-lambda-ecs-repo
-VERSION=dev
+IMAGE?=cdk-lambda-ecs-repo
+VERSION?=dev
 AWS_ACCOUNT_ID?=$(shell aws --profile JuanP sts get-caller-identity --query Account --output text)
-AWS_REGION=us-west-1
+AWS_REGION?=us-west-1
 
 session:
 	aws --profile JuanP ecr get-login-password --region ${AWS_REGION} | \
