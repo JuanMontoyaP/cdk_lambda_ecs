@@ -32,12 +32,10 @@ jobs:
             type=ref,event=pr
             type=sha
 
-      - name: List files in ecs_app directory
-        run: ls -la
-
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
+          context: .
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
