@@ -14,6 +14,9 @@ build:
 run:
 	docker run --rm -d -p 80:80 --name ${IMAGE} ${IMAGE}:${VERSION}
 
+clean:
+	docker stop ${IMAGE} || true
+
 tag: build
 	docker tag ${IMAGE}:${VERSION} \
 		${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE}:${VERSION}

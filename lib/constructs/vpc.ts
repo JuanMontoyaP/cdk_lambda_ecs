@@ -12,6 +12,7 @@ import { Construct } from "constructs";
 
 export class VPCResources extends Construct {
   public vpc: Vpc;
+  public httpSecurityGroup: SecurityGroup;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -44,14 +45,14 @@ export class VPCResources extends Construct {
   }
 
   addSecurityGroup() {
-    let httpSecurityGroup = new SecurityGroup(this, "HttpSecurityGroup", {
+    this.httpSecurityGroup = new SecurityGroup(this, "HttpSecurityGroup", {
       vpc: this.vpc,
       securityGroupName: "HttpSecurityGroup",
       description: "Allow HTTP traffic to EC2 instances",
       allowAllOutbound: true,
     });
 
-    httpSecurityGroup.addIngressRule(
+    this.httpSecurityGroup.addIngressRule(
       Peer.anyIpv4(),
       Port.tcp(80),
       "Allow HTTP traffic from anywhere"
